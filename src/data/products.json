@@ -1,0 +1,24 @@
+[
+    {
+        "id": "bf1fb11d-6c9a-424a-bf2b-2d1bd1fb6cfb",
+        "title": "dfg",
+        "description": "dfg",
+        "price": "34534",
+        "thumbnail": "https://ibb.co/hCFP2Nk",
+        "code": "234d",
+        "stock": "345",
+        "status": true,
+        "category": "sdfgsg"
+    },
+    {
+        "id": "ec787ee0-0ccf-4da2-81a2-433a99c8ad11",
+        "title": "Camisetas",
+        "description": "dario",
+        "price": "4653",
+        "thumbnail": "https://ibb.co/5cYG19s",
+        "code": "546",
+        "stock": "45",
+        "status": "true",
+        "category": "sdf"
+    }
+]
