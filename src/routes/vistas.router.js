@@ -15,8 +15,11 @@ router.get('/', async (req,res)=>{
 //aca usamos socket
  router.get('/realTimeproducts', async (req,res) => {
     res.status(200).render('realTimeProducts')
-
     
 }) 
+router.get('/chat', async (req,res) => {
+    res.status(200).render('chat')
+
+})
 
 export default router;
