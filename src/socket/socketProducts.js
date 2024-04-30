@@ -1,7 +1,7 @@
 import ProductManager from "../dao/productManagerMONGO.js";
 const pm = new ProductManager();
 
-export const socketProducts = (socketServer) => {
+ const socketProducts = (socketServer) => {
     socketServer.on("connection", async(socket)=>{
         console.log("un cliente se conecto con ID:",socket.id);
         const listOfProducts = await pm.getProducts();
@@ -41,3 +41,4 @@ export const socketProducts = (socketServer) => {
     });
 };
 
+export default socketProducts;
