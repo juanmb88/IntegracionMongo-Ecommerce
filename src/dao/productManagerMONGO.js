@@ -58,4 +58,3 @@ export default class ProductManager{
     };
    
 }
-//que significa esta linea de codigo contesta en espanol   return await productsModel.deleteOne({id:id});?

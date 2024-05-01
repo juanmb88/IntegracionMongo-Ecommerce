@@ -4,7 +4,7 @@ dotenv.config();
 const dbName = 'ecommerce';
 
 
-export const connectDB = async ()=>{
+ const connectDB = async ()=>{
     
     try{
         await mongoose.connect(`mongodb+srv://user:1234@cluster.s4bt3ui.mongodb.net/?&dbName=${dbName}`) 
@@ -14,3 +14,4 @@ export const connectDB = async ()=>{
     }
 }
  
+export default connectDB;

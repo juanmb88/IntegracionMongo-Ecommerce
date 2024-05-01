@@ -8,18 +8,16 @@ export const router = Router()
 const pm = new ProductManagerMONGO()
 router.get('/', async (req,res)=>{
     const listOfProducts = await pm.getProducts(); 
-//    res.setHeader('Content-Type','text/html');
+    res.setHeader('Content-Type','text/html');
     res.status(200).render('inicio', {listOfProducts});
-//    console.log(listOfProducts)
-})
-//aca usamos socket
+   // console.log(listOfProducts)
+});
+
  router.get('/realTimeproducts', async (req,res) => {
     res.status(200).render('realTimeProducts')
     
-}) 
+}) ;
+
 router.get('/chat', async (req,res) => {
     res.status(200).render('chat')
-
-})
-
-export default router;
+});
