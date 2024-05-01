@@ -8,9 +8,10 @@ const pm = new ProductManagerMongo();
 // const manager=new ProductManager(__dirname+'/Dao/database/products.json')
 const routerP =Router();
 
-routerP.get("/products",async(req,res)=>{
+routerP.get("/",async(req,res)=>{
     const products= await pm.getProducts()
     res.json({products})
+
 })
 
 
@@ -32,11 +33,20 @@ routerP.get("/products/:pid", async (req, res) => {
      res.json({ status: "success", updatedproduct });
   });
 
-
-  
+/*   routerP.put('/:pid', async (req, res) => {
+    try {
+        const { pid } = req.params;
+        const result = await pm.updateProduct(String(pid), req.body);
+        res.json({ result });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('An error has occurred');
+    }
+});
+   */
   routerP.delete("/products/:pid", async (req, res) => {
     const id=parseInt(req.params.pid)
-    const deleteproduct = await pm.deleteProduct(id);
+    const deleteproduct = await pm.deleteProductById(id);
      res.json({ status: "success",deleteproduct });
   });
 

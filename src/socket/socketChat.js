@@ -5,7 +5,7 @@ const mensageManager= new MessageManager()
 const socketChat=(socketServer)=>{
 
     socketServer.on('connection',async(socket)=>{
-        console.log("conectado usuario con id para el socketChat: " + socket.id)
+       // console.log("conectado usuario con id para el socketChat: " + socket.id)
    
 
         socket.on("mensaje", async (info) => {

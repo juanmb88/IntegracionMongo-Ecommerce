@@ -3,7 +3,7 @@ const pm = new ProductManager();
 
  const socketProducts = (socketServer) => {
     socketServer.on("connection", async(socket)=>{
-        console.log("un cliente se conecto con ID:",socket.id);
+      //  console.log("un cliente se conecto con ID:",socket.id);
         const listOfProducts = await pm.getProducts();
         
         socketServer.emit('sendProducts',listOfProducts);
@@ -14,10 +14,9 @@ const pm = new ProductManager();
             socketServer.emit('sendProducts',listOfProducts);
             });
 
-            socket.on("deleteProduct", async(_id)=>{
-
-            console.log("Se recibió un evento para eliminar el producto con ID:", _id);
-            await pm.deleteProduct(_id);
+        socket.on("deleteProduct", async(id)=>{
+            console.log("Se recibió un evento para eliminar el producto con ID:", id);
+            await pm.deleteProductById(id);
             const listOfProducts = await pm.getProducts();
             socketServer.emit('sendProducts',listOfProducts);
             });

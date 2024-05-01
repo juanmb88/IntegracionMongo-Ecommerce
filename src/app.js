@@ -2,7 +2,7 @@ import express from "express";
 import { engine } from "express-handlebars";
 import path from "path"; 
 import { Server } from "socket.io";
-import { errorHandler } from "./middleware/middleW01.js";
+//import { errorHandler } from "./middleware/middleW01.js";
 import { connectDB } from "./connection/MongoDB.js"
 import routerP from "./routes/products-router.js";
 import { CartManager } from "./dao/cartManager.js";
@@ -13,7 +13,7 @@ import socketChat from "./socket/socketChat.js";
 import socketProducts from './socket/socketProducts.js'
 import  dotenv from 'dotenv'
 dotenv.config()
-const port = process.env.PORT
+const port = 8080
 
 const app = express();
 
@@ -44,7 +44,7 @@ app.use('/',(req, res)=>{
     res.status(200).send("Todo Ok")});
 //FIN RUTAS
 
-app.use(errorHandler)//error handler
+//app.use(errorHandler)//error handler
 
 
 //Escucha del servidor

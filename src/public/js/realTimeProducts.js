@@ -15,28 +15,28 @@ let productsHTML = "";
 
 productList.forEach( product => {
     productsHTML += `  <div class="border border-dark card h-100 bg-white mx-4 my-3" style="max-width:30rem">
-                             <div class="card-header bg-secondary text-white">
-                                 <i class="bi bi-tag"></i>Code: ${product.code}
+    
+                             <div class="w-100 card-header bg-secondary text-white ">
+                                 <i class="bi bi-tag fw-normal fw-bold">ID Producto:</i> ${product.id}
                              </div>
+
                             <div class="card-body">
-                                <h5 class="card-title text-black">${product.title}</h5>
+                                <h5 class="card-title px-4 text-primary fw-bold">${product.title}</h5>
+
                                 <ul class="card-text">
-                                    <li class="fw-normal"><i class="fw-bold ">  ID: </i> ${product._id}</li>
                                     <li class="fw-normal"><i class="fw-bold ">  Descripcion: </i>${product.description}</li>
                                     <li class="fw-normal"><i class="fw-bold ">  Precio: </i>$${product.price}</li>
                                     <li class="fw-normal"><i class="fw-bold ">  Categoria: </i>${product.category}</li>
                                     <li class="fw-normal"><i class="fw-bold ">  Estado: </i>${product.status}</li>
-                                    <li class="fw-normal"><i class="fw-bold ">  Stock: </i>${product.stock}</li>
+                                    <li class="fw-normal"><i class="fw-bold ">  Codigo: </i> ${product.code}</li>
+                                    <li class="fw-normal"><i class="fw-bold ">  Stock: </i>${product.stock}</li> 
                                    
-                                        <i class="fw-bold "> Imagen: </i> <img src="${product.thumbnail}" class="img-thumbnail img-fluid mt-2">
-                                  
+                                    <i class="fw-bold ">  </i> <img src="${product.thumbnail}" 
+                                                                           class="d-flex justify-content-center img-thumbnail mx-5" 
+                                                                            style="width: 200px; height: 200px; border-radius: 5px; ">     
                                 </ul>
 
-                                <div class=d-flex justify-content-between mb-4>
-                                    <button class= "btn btn-danger delete-btn p-3 mx-5" onclick="deleteProduct(${product._id})">Eliminar</button>
-                                    <button class= "btn btn-warning delete-btn mx-5" onclick="updateProduct(${product._id})">Modificar</button>
 
-                                </div>
                             </div>
                         </div>
     `
@@ -86,7 +86,7 @@ document.getElementById("delete-id-btn").addEventListener('click', function(){
   
 })
 //elimino por unidad
-function deleteProduct(productId){
+function deleteProductByUnit(productId){
     socketClient.emit("deleteProduct", productId)
 }
 ////////actualizar   un producto///////////

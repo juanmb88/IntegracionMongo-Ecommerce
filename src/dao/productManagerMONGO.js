@@ -49,12 +49,13 @@ export default class ProductManager{
     };
 
 
-    deleteProduct = async (id) => {
+    deleteProductById = async (id) => {
         try {
-            return await productsModel.findByIdAndDelete(id);
+            return await productsModel.deleteOne({id})
         } catch (err) {
             return err
         }
     };
-
+   
 }
+//que significa esta linea de codigo contesta en espanol   return await productsModel.deleteOne({id:id});?
