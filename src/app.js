@@ -5,7 +5,7 @@ import { cartsRouter } from "./routes/cart-router.js";
 import path from "path"; 
 import { Server } from "socket.io";
 import connectDB from "./connection/MongoDB.js"
-import routerP from "./routes/products-router.js";
+import router from "./routes/products-router.js";
 import { router as vistasRouter } from './routes/vistas.router.js';
 import __dirname from "./utils.js"; 
 import socketChat from "./socket/socketChat.js";
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname,'/public')));
 //FIN contenido estatico
 
 //RUTAS
-app.use('/api/products', routerP);
+app.use('/api/products', router);
 app.use('/api/carts', cartsRouter);
 app.use('/', vistasRouter);//ruta de las vistas con handlebars
 app.use('/',(req, res)=>{
