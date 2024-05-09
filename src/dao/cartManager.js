@@ -70,4 +70,29 @@ export class CartManager {
                         throw new Error("Carrito no encontrado, producto no agregado");
                     }
     }
+    
+    decreaseProductQuantity = async (cid, pid)=>{
+      try {
+          const cart = await cartsModel.findById(cid);
+          const productIndex = cart.products.findIndex(product => product.product == pid);
+  
+          if (productIndex !== -1) {
+              // Si el producto existe en el carrito, disminuir su cantidad
+              if (cart.products[productIndex].quantity > 1) {
+                  cart.products[productIndex].quantity -= 1;
+                  await cart.save();
+              } else {
+                  // Si la cantidad es 1, eliminar el producto del carrito
+                  cart.products.splice(productIndex, 1);
+                  await cart.save();
+              }
+          }
+  
+          return true;
+      } catch (error) {
+          console.log(error);
+          return false;
+      }
+  }
 }
+

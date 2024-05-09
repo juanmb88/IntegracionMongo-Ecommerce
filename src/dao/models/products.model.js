@@ -1,13 +1,9 @@
 import mongoose from "mongoose";
-import {v4 as uuidv4} from "uuid";
+import paginate from 'mongoose-paginate-v2';
 
-const productCollection="products";
 
-const productSchema= new mongoose.Schema({
-    id : {
-        type: String,
-        default: uuidv4()
-    },
+const productsSchema= new mongoose.Schema({
+   
     title: {
         type: String,
         required: true
@@ -42,4 +38,5 @@ const productSchema= new mongoose.Schema({
         default: true // Establezco true por defecto
     }
 })
-export const productsModel= mongoose.model(productCollection,productSchema);
+productsSchema.plugin(paginate);
+export const productsModel= mongoose.model("products",productsSchema);

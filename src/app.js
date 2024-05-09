@@ -1,13 +1,12 @@
 import express from "express";
-import { engine } from "express-handlebars";
-import { CartManager } from "./dao/cartManager.js";
-import { cartsRouter } from "./routes/cart-router.js";
 import path from "path"; 
+import __dirname from "./utils.js"; 
+import { engine } from "express-handlebars";
 import { Server } from "socket.io";
 import connectDB from "./connection/MongoDB.js"
-import router from "./routes/products-router.js";
+import { router as productRouter } from "./routes/products-router.js";
+import { router as cartRouter } from "./routes/cart-router.js";
 import { router as vistasRouter } from './routes/vistas.router.js';
-import __dirname from "./utils.js"; 
 import socketChat from "./socket/socketChat.js";
 import socketProducts from './socket/socketProducts.js';
 import  dotenv from 'dotenv';
@@ -16,7 +15,6 @@ const port = 8080;
 
 const app = express();
 
-export const  cartManager = new CartManager;
 //middlewares 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -37,8 +35,8 @@ app.use(express.static(path.join(__dirname,'/public')));
 //FIN contenido estatico
 
 //RUTAS
-app.use('/api/products', router);
-app.use('/api/carts', cartsRouter);
+app.use('/api/products', productRouter);
+app.use('/api/carts', cartRouter);
 app.use('/', vistasRouter);//ruta de las vistas con handlebars
 app.use('/',(req, res)=>{
     res.setHeader('Content-Type', 'text/plain');
@@ -54,4 +52,4 @@ const socketServer = new Server(serverHTTP);
 socketProducts(socketServer);
 socketChat(socketServer);
 //FIN Escucha del servidor
-    
+ 

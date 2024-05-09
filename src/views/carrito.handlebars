@@ -1,9 +1,6 @@
-
-<a class="mx-5 my-5 btn btn-success" href="/realtimeproducts">Tiempo real</a>
-<a class="mx-5 my-5 btn btn-success" href="/carrito">Carrito</a>
-
+<a class="mx-5 my-5 btn btn-success" href="/">Inicio</a>
 <div class="container col-12 border border-primary">
-    <h1 class="text-center mb-4 fs-1 font-monospace">Productos</h1>
+    <h1 class="text-center mb-4 fs-1 font-monospace">Carrito de compras</h1>
       <div class="row  row-cols-md-4 row-cols-md-5 ">  
           {{#each listOfProducts}}
          <div class="col mb-4">
@@ -37,33 +34,3 @@
         {{/each}}
       </div> 
 </div>
-
-<br>
-<div class="d-flex justify-content-center">
-<a class="mx-5 my-5 btn btn-success" href="/?pagina=1">Pág. 1</a>
-
- {{#if hasPrevPage}}
-    <a class="mx-5 my-5 btn btn-success" href="/?pagina={{prevPage}}">Ant.</a>
-{{/if}} 
-
-{{#if hasNextPage}}
-    <a class="mx-5 my-5 btn btn-success" href="/?pagina={{nextPage}}">Sig.</a>
-{{/if}}
-
-
-<a class="mx-5 my-5 btn btn-success" href="/?pagina={{totalPages}}">Ult.Pág.</a>
-
-</div>
-<br>
-{{!-- <label for="paginaActual"></label>  
- 
-
-<input class="mx-5 my-5" type="number" max="{{totalPages}}" min="1" step="1" id="paginaActual" name="paginaActual" value="{{page}}" onchange="cambioPagina()">
-
-
-<script>
-    let inputPaginaActual=document.getElementById("paginaActual")
-    const cambioPagina=()=>{
-        window.location.href="/usuarios?pagina="+inputPaginaActual.value
-    }
-</script> --}}
