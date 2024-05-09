@@ -25,7 +25,7 @@ export default class CartManager {
   };
   ///mandar un solo producto 
   async getOneBy(filtro={}) {
-    return await cartsModel.findOne(filtro).populate("products.product").lean();
+    return await cartsModel.findOne(filtro).lean();
   };
 
   //ELIMINAR CARRITO
@@ -60,14 +60,14 @@ async getOneByPopulate(filtro = {}) {
     }
 };
 
- async getAllProductsFromCart(id) {
+/*  async getAllProductsFromCart(id) {
   try {
     return await cartsModel.findById(id).populate("producto.products").select({productos: 1, _id:0});
   } catch (error) {
     console.log(error);
     return false;
   }
-}; 
+};  */
 
 //METODO DE ELIMINAR PRODUCTO POR CANTIDAD RESTANDFO QUANTITY
 async decreaseProductQuantity(cid, pid) {

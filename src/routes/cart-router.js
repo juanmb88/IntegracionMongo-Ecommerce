@@ -53,58 +53,11 @@ router.post("/", async (req, res) => {
 });
 
 ///////////////////AGREGAR PRODUCTOS AL CARRITO//////////////////
-/* router.post("/:cid/products/:pid", async (req, res) => {
-  let { cid, pid } = req.params
-
-  if (!isValidObjectId(cid) || !isValidObjectId(pid)) {
-    //pruebo que vengan id correctos
-    res.setHeader("Content-Type", "application/json");
-    return res.status(400).json({ error: `Ingrese cid / pid válidos` });
-  }
-
-  //traigo carrito
-  let carrito = await cartManager.getOneBy({ _id: cid });
-  if (!carrito) {
-    res.setHeader("Content-Type", "application/json");
-    return res.status(400).json({ error: `Carrito inexistente: id ${cid}` });
-  }
-
-  //traigo producto
-  let producto = await productManager.getOneBy({ _id: pid });
-  if (!producto) {
-    res.setHeader("Content-Type", "application/json");
-    return res.status(400).json({ error: `No existe producto con id ${pid}` });
-  }
-  console.log(carrito)
-  //busca un producto en un carrito de compras
-  let indiceProducto = carrito.products.findIndex(p => p.product == pid);
-  if (indiceProducto === -1) {
-    carrito.products.push({
-      product: pid,
-      quantity: 1
-    })
-  } else {
-    carrito.products[indiceProducto].quantity++
-  }
-
-  let resultado = await cartManager.update(cid, carrito);
-  if (resultado.modifiedCount > 0) {
-    res.setHeader("Content-Type", "application/json");
-    return res.status(200).json({ payload: "Carrito actualizado" });
-  } else {
-    res.setHeader("Content-Type", "application/json");
-    return res.status(500).json({
-      error: `Unexpected server error - Try later, or contact your administrator`,
-      detalle: `The update could not be performed`,
-    });
-  }
-}); */
-
 router.post('/:cid/products/:pid',async(req,res)=>{
 
   let {cid, pid}=req.params
   if(!isValidObjectId(cid) || !isValidObjectId(pid)){
-      res.setHeader('Content-Type','application/json');
+      res.setHeader('Content-Type','application/json')
       return res.status(400).json({error:`Ingrese cid / pid válidos`})
   }
 
@@ -120,16 +73,16 @@ router.post('/:cid/products/:pid',async(req,res)=>{
       return res.status(400).json({error:`No existe producto con id ${pid}`})
   }
 
-  console.log(carrito)
-  let indiceProducto=carrito.products.findIndex(p=>p.product==pid)
-  if(indiceProducto===-1){
-      carrito.products.push({
-          product: pid, quantity:1
-      })
+  let indiceProducto = carrito.products.findIndex(p=>p.product==pid)
+  if(indiceProducto === -1){
+    carrito.products.push({
+      product: pid, quantity:1
+    })
   }else{
-      carrito.products[indiceProducto].quantity++
+    carrito.products[indiceProducto].quantity++
   }
-
+  
+  console.log(carrito, " console de carrito")
   let resultado=await cartManager.update(cid, carrito)
   if(resultado.modifiedCount>0){
       res.setHeader('Content-Type','application/json');
@@ -141,30 +94,9 @@ router.post('/:cid/products/:pid',async(req,res)=>{
               error:`Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
               detalle:`No se pudo realizar la actualizacion`
           }
-      )
-      
-  }
+      )}
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /////////////ELIMINAR PRODUCTO DEL CARRITO POR UNIDAD (QUANTITY)///////////
 router.put("/:cid/products/:pid", async (req, res) => {
