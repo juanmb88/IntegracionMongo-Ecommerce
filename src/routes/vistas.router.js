@@ -111,14 +111,22 @@ router.get('/paginacion', async (req, res) => {
 });
 
 //VISTA DE SOLO EL CARRITO
-router.get("/carrito/:cid", async (req, res) => {
-    let {cid}=req.params;
 
-    let carrito=await cartManager.getOneByPopulate({_id:cid});
+router.get("/carts/:cid", async (req, res) => {
+    let id = req.params.cid
+    let products
+    try {
+        let carrito = await cartManager.getCartById(id)
+        console.log(carrito)
+        products = carrito.products
+        res.setHeader("Content-Type", "text/html")
+        res.status(200).render("carrito",{products})
+    } catch (error) {
+        res.setHeader("Content-Type", "application/json")
+        res.status(500).res.json({ Error: "Error 500 - Error inesperado en el servidor" })        
+    }
 
-    res.setHeader('Content-Type','text/html');
-    return res.status(200).render("carrito", {carrito});
-});
+})
 
 router.get('/productos',async(req,res) => {
     // let carrito_id="asldfkjasdlfkj"

@@ -15,19 +15,19 @@ router.get("/", async (req,res) => {
 });
 
 /// OBTENER POR ID /////
-router.get("/products/:pid", async (req, res) => {
+router.get("/:pid", async (req, res) => {
     const productfind = await productManager.getProductById(req.params);
     res.json({ status: "success", productfind });
 });
 
-/// DELETE POR ID /////
-router.put("/products/:pid", async (req, res) => {
+/// UPDATE POR ID /////
+router.put("/:pid", async (req, res) => {
     const updatedproduct = await productManager.updateProduct( req.params, req.body );
      res.json({ status: "success", updatedproduct });
 });
 
 /// DELETE POR ID /////
-router.delete("/products/:pid", async (req, res) => {
+router.delete("/:pid", async (req, res) => {
     const id=parseInt(req.params.pid)
     const deleteproduct = await productManager.deleteProductById(id);
      res.json({ status: "success",deleteproduct });

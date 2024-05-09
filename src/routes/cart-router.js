@@ -156,3 +156,51 @@ router.delete("/:cid/products/:pid", async (req, res) => {
     return res.status(500).json({ error: `${error.message}` });
   }
 });
+
+// Modificar un producto desde el carrito
+
+router.put("/:cId/products/:pId", async (req, res) => {
+  const { cId, pId } = req.params;
+  if (!isValidObjectId(cId) || !isValidObjectId(pId)) {
+    res.setHeader("Content-Type", "application/json");
+    return res.status(400).json({ error: `Ingrese cid / pid válidos` });
+  }
+
+  try {
+    let carrito = await cartManager.getOneBy({ _id: cId });
+    if (!carrito) {
+      res.setHeader("Content-Type", "application/json");
+      return res.status(400).json({ error: `Carrito inexistente: id ${cId}` });
+    }
+
+    let productIndex = carrito.products.findIndex((p) => p.product == pId);
+    if (productIndex === -1) {
+      res.setHeader("Content-Type", "application/json");
+      return res.status(400).json({ error: `El producto con id ${pId} no está en el carrito` });
+    }
+
+    // Assuming you have a body with new product data
+    const { quantity } = req.body;
+
+    if (quantity <= 0) {
+      res.setHeader("Content-Type", "application/json");
+      return res.status(400).json({ error: `La cantidad debe ser mayor que cero` });
+    }
+
+    carrito.products[productIndex].quantity = quantity;
+
+    const resultado = await cartManager.update(cId, carrito);
+    if (resultado.modifiedCount > 0) {
+      res.setHeader("Content-Type", "application/json");
+      return res.status(200).json({ payload: "Producto en el carrito actualizado" });
+    } else {
+      res.setHeader("Content-Type", "application/json");
+      return res.status(500).json({
+        error: `Error inesperado en el servidor - Intente más tarde, o contacte a su administrador`,
+        detalle: `No se pudo realizar la actualizacion`,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: `${error.message}` });
+  }
+});
