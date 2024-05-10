@@ -11,7 +11,7 @@ paquetes node para funcionar instalados: npm i express express-handlebars mongoo
 carpeta src app.js     
 instalamos nodemon    
 importamos express y creamos app    
-app.listen(3000) para el localhost    
+app.listen(8080) para el localhost    
 
 en package reemplazamos script por "start": "nodemon src/app.js "  
 en consola vamos con npm start como comando para darle inicio al programa con nodemon 
