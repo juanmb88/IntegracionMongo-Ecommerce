@@ -7,6 +7,8 @@ import connectDB from "./connection/MongoDB.js"
 import { router as productRouter } from "./routes/products-router.js";
 import { router as cartRouter } from "./routes/cart-router.js";
 import { router as vistasRouter } from './routes/vistas.router.js';
+import { router as sessionsRouter } from './routes/sessions-router.js';
+import sessions from "express-session"
 import socketChat from "./socket/socketChat.js";
 import socketProducts from './socket/socketProducts.js';
 import  dotenv from 'dotenv';
@@ -19,7 +21,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 //FIN middlewares 
-
+//SESSION
+app.use(sessions({
+    secret:"CoderCoder123", resave:true, saveUninitialized: true
+}))
+//FIN SESSION
 //CONECCION A MONGO DB
 connectDB();
 //CONECCION A MONGO DB
@@ -37,6 +43,7 @@ app.use(express.static(path.join(__dirname,'/public')));
 //RUTAS
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
+app.use('/api/sessions', sessionsRouter);
 app.use('/', vistasRouter);//ruta de las vistas con handlebars
 app.use('/',(req, res)=>{
     res.setHeader('Content-Type', 'text/plain');

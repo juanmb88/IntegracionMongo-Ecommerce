@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import  ProductManagerMONGO from '../dao/productManagerMONGO.js';
 import CartManager from '../dao/cartManagerMONGO.js';
-
+import {auth} from "../middleware/auth.js"
 export const router = Router();
 
 const productManager = new ProductManagerMONGO();
@@ -18,7 +18,11 @@ router.get('/chat', async (req,res) => {
 });
 
 ////////////////////////VISTA INICIO/////////////
-router.get('/', async (req, res) => {
+router.get('/',auth, async (req, res) => {
+    let carrito = await cartManager.getOneBy()
+    if( !carrito ) {
+        carrito = await cartManager.createCart()
+    }; 
     try {
         let { pagina, query, sort } = req.query;
         // Si no se proporciona una página, usar la página 1
@@ -48,7 +52,8 @@ router.get('/', async (req, res) => {
             hasPrevPage,
             hasNextPage,
             prevPage,
-            nextPage
+            nextPage,
+            carrito
         });
     } catch (error) {
         console.error('Error al obtener los productos paginados:', error);
@@ -111,8 +116,7 @@ router.get('/paginacion', async (req, res) => {
 });
 
 //VISTA DE SOLO EL CARRITO
-
-router.get("/carts/:cid", async (req, res) => {
+ router.get("/carrito/:cid", async (req, res) => {
     let id = req.params.cid
     let products
     try {
@@ -125,15 +129,17 @@ router.get("/carts/:cid", async (req, res) => {
         res.setHeader("Content-Type", "application/json")
         res.status(500).res.json({ Error: "Error 500 - Error inesperado en el servidor" })        
     }
+    
+});
 
-})
 
-router.get('/productos',async(req,res) => {
-    // let carrito_id="asldfkjasdlfkj"
+//VISTA PRODUCTOS
+router.get('/productos', async(req,res) => {
     let carrito = await cartManager.getOneBy()
     if( !carrito ) {
         carrito = await cartManager.createCart()
-    };
+    }; 
+
 
     let productos;
     try {
@@ -148,10 +154,33 @@ router.get('/productos',async(req,res) => {
             }
         )
     };
-
     res.setHeader('Content-Type','text/html')
     res.status(200).render("productos", {
         productos,
-        carritoId: carrito._id 
+        carrito
     })
 });
+
+
+//VISTA DE REGISTRO
+router.get('/register', (req, res) => {
+    res.setHeader("Content-Type", "text/html")
+    res.status(200).render("register")
+});
+    
+//VISTA DE LOGIN PARA EL USUARIO
+router.get('/login',(req,res)=>{
+
+    let {error}=req.query
+
+    res.status(200).render('login', {error})
+})
+
+//VISTA PERFIL DEL USUARIO
+router.get('/profile',auth, (req, res) => {
+    res.setHeader("Content-Type", "text/html")
+    res.status(200).render("profile",{
+        usuario: req.session.usuario
+    })
+});
+    

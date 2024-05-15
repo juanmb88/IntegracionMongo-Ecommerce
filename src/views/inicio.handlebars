@@ -1,7 +1,13 @@
 
 <a class="mx-5 my-5 btn btn-success" href="/realtimeproducts">Tiempo real</a>
-<a class="mx-5 my-5 btn btn-success" href="/carrito">Carrito</a>
+<a href="/carrito/{{carrito._id}}"  id="inputCarrito">Ver Carrito</a>
 
+{{!-- {{#if mensajeBienvenida}}
+        <p>{{mensajeBienvenida}}</p>
+{{/if}} --}}
+<input type="text" value="{{carrito._id}}"  id="inputCarrito">
+
+{{>menu}}
 <div class="container col-12 border border-primary">
     <h1 class="text-center mb-4 fs-1 font-monospace">Productos</h1>
       <div class="row  row-cols-md-4 row-cols-md-5 ">  
@@ -57,15 +63,3 @@
 
 </div>
 <br>
-{{!-- <label for="paginaActual"></label>  
- 
-
-<input class="mx-5 my-5" type="number" max="{{totalPages}}" min="1" step="1" id="paginaActual" name="paginaActual" value="{{page}}" onchange="cambioPagina()">
-
-
-<script>
-    let inputPaginaActual=document.getElementById("paginaActual")
-    const cambioPagina=()=>{
-        window.location.href="/usuarios?pagina="+inputPaginaActual.value
-    }
-</script> --}}

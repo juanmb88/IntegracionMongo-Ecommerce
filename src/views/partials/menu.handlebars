@@ -1,0 +1,44 @@
+<div class="container">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home Page</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register">Registro</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/profile">Perfil</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/api/sessions/logout" id="logoutBtn">Logout</a>
+      </li>
+    </ul>
+  </div>
+    <script>
+ document.getElementById('logoutButton').addEventListener('click', function() {
+    // Mostrar ventana de confirmación
+    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+        // Si el usuario confirma el cierre de sesión
+        fetch('http://localhost:8080/api/sessions/logout', {
+            method: 'POST', // o 'GET' dependiendo del método que uses
+            // Puedes agregar headers y datos del usuario aquí si es necesario
+        })
+        .then(response => {
+            // Manejar la respuesta del servidor (puede ser redirección a la página de inicio de sesión)
+            window.location.href = '/login'; // Redirige a la página de inicio de sesión
+        })
+        .catch(error => {
+            // Manejar errores, como problemas de conexión, etc.
+            console.error('Error al cerrar sesión:', error);
+            // Aquí puedes mostrar un mensaje de error al usuario si es necesario
+        });
+    } else {
+        // Si el usuario cancela el cierre de sesión
+        // No hacer nada o mostrar algún mensaje opcional
+    }
+});
+
+  </script>
